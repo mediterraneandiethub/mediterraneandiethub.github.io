@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mediterranean Diet — Eat well, live well — the Mediterranean way</title>
+<meta name="description" content="Mediterranean Diet: diet score quiz, calorie calculator, olive oil and seafood guides, and practical articles.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+
+*{box-sizing:border-box}body{margin:0;background:#faf6ef;color:#3d362b;font-family:Georgia,'Times New Roman',serif;line-height:1.85}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px}
+.site-header{background:#5a6b3c;color:#faf6ef;padding:26px 0 20px;text-align:center}
+.brand{color:#faf6ef;font-size:34px;font-weight:normal;text-decoration:none;letter-spacing:1px}
+.tagline{color:#e8e0c8;margin:6px 0 14px;font-style:italic;font-size:17px}
+.nav a{color:#faf6ef;text-decoration:none;margin:0 12px;font-size:15px;letter-spacing:.5px}
+.nav a:hover{color:#e8a87c}
+.hero{padding:38px 0 10px;text-align:center;border-bottom:1px solid #d8cbb2;margin-bottom:28px}
+.hero h1{margin:0 0 10px;color:#5a6b3c;font-size:38px;font-weight:normal}
+.hero p{font-size:19px;color:#6b5f4a;font-style:italic}
+h1{color:#5a6b3c;font-weight:normal}
+h2{color:#b4552d;font-weight:normal;font-size:26px;margin-top:32px;border-bottom:1px solid #e8dcc8;padding-bottom:6px}
+h3{color:#5a6b3c}
+.tool{background:#fffdf7;border:1px solid #d8cbb2;border-radius:4px;padding:22px;margin:20px 0}
+.tool h3{margin-top:0;font-size:21px}
+label{display:block;margin:10px 0 4px;font-style:italic}
+input,select{width:100%;max-width:340px;padding:9px;border:1px solid #cbbfa5;border-radius:3px;background:#fff;font-family:Georgia,serif;font-size:15px;color:#3d362b}
+button{background:#b4552d;color:#fff;border:none;padding:10px 22px;font-family:Georgia,serif;font-size:16px;cursor:pointer;margin-top:12px;letter-spacing:.5px}
+button:hover{background:#96451f}
+.result{margin-top:14px;padding:12px;background:#f3ecdc;border-left:3px solid #b4552d}
+.guide-list{list-style:none;padding:0}
+.guide-list li{padding:16px 0;border-bottom:1px solid #e8dcc8}
+.guide-list a{color:#b4552d;font-weight:bold;text-decoration:none;font-size:20px}
+.guide-list p{color:#6b5f4a;margin:6px 0 0;font-style:italic}
+.lede{font-size:19px;color:#6b5f4a;font-style:italic}
+.site-footer{background:#5a6b3c;color:#e8e0c8;padding:24px 0;margin-top:48px;text-align:center}
+.site-footer a{color:#fff}
+a{color:#b4552d}
+table{border-collapse:collapse;width:100%;margin:14px 0}td,th{border:1px solid #d8cbb2;padding:9px;text-align:left}
+.quiz-q{margin:12px 0}
+@media(max-width:600px){.brand{font-size:26px}.hero h1{font-size:28px}}
+.featured-img{width:100%;height:auto;border-radius:4px;margin:14px 0}
+.card-img{width:100%;height:auto;border-radius:4px;display:block;margin-bottom:10px}
+
+</style>
+</head>
+<body>
+<header class="site-header"><div class="wrap"><a class="brand" href="index.html">Mediterranean Diet</a><p class="tagline">Eat well, live well — the Mediterranean way</p><nav class="nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="disclaimer.html">Disclaimer</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><h1>The Mediterranean way of eating</h1><p>Olive oil, vegetables, whole grains, legumes, and fish — plus the unhurried meals and daily walks that make the pattern work. Guides and tools to help you begin.</p></section>
+<section><h2>Free Tools</h2><div class="tool"><h3>Mediterranean Diet Score</h3><p>Answer the 14 questions below. Each yes is one point; a higher score means your eating is closer to the traditional Mediterranean pattern.</p>
+<div id="quizQs"></div>
+<button onclick="medScore()">Calculate my score</button><div class="result" id="quizOut">Answer the questions, then press the button.</div></div>
+<div class="tool"><h3>Olive Oil Guide</h3><p>Choose a use and find the right olive oil for it.</p>
+<label>What are you cooking?</label><select id="ooUse"><option value="salad">Salad dressing</option><option value="frying">Frying or sautéing</option><option value="roasting">Roasting vegetables</option><option value="baking">Baking</option><option value="finishing">Finishing drizzle</option></select>
+<button onclick="oliveOil()">Show my oil</button><div class="result" id="ooOut">Choose a use and press the button.</div></div>
+<div class="tool"><h3>Daily Calorie Calculator</h3><p>Uses the Mifflin-St Jeor equation: BMR from weight, height, age, and sex, multiplied by an activity factor to give your total daily energy expenditure (TDEE).</p>
+<label>Sex</label><select id="ccSex"><option value="m">Male</option><option value="f">Female</option></select>
+<label>Weight (kg)</label><input type="number" id="ccW" value="75" min="30" max="300">
+<label>Height (cm)</label><input type="number" id="ccH" value="172" min="100" max="250">
+<label>Age (years)</label><input type="number" id="ccAge" value="40" min="10" max="100">
+<label>Activity level</label><select id="ccAct"><option value="1.2">Sedentary (little or no exercise)</option><option value="1.375">Lightly active (1–3 days/week)</option><option value="1.55" selected>Moderately active (3–5 days/week)</option><option value="1.725">Very active (6–7 days/week)</option><option value="1.9">Extra active (physical job or training twice a day)</option></select>
+<button onclick="calcCalories()">Calculate my calories</button><div class="result" id="ccOut">Enter your details and press calculate.</div></div>
+<div class="tool"><h3>Weekly Meal Planner</h3><p>A simple seven-day Mediterranean meal plan.</p>
+<label>Your focus</label><select id="mpFocus"><option>Classic Mediterranean</option><option>More fish and seafood</option><option>Vegetarian Mediterranean</option></select>
+<button onclick="medMealPlan()">Show my week</button><div class="result" id="mpOut">Choose a focus and press the button.</div></div>
+<div class="tool"><h3>Seafood and Fish Guide</h3><p>Pick a fish and learn how to cook it, plus how often to eat it.</p>
+<label>Fish</label><select id="sfFish"><option value="salmon">Salmon</option><option value="sardines">Sardines</option><option value="cod">Cod</option><option value="sea bass">Sea bass</option><option value="tuna">Tuna</option><option value="mackerel">Mackerel</option><option value="prawns">Prawns</option></select>
+<button onclick="seafoodGuide()">Show the guide</button><div class="result" id="sfOut">Choose a fish and press the button.</div></div></section>
+<section><h2>Guides</h2><ul class="guide-list"><li><a href="guides/mediterranean-diet-basics.html"><img src="images/mediterranean-diet-basics.jpg" alt="Mediterranean Diet Basics" class="card-img">Mediterranean Diet Basics</a><p>What the Mediterranean diet really is, why it is studied so much, and how to start.</p></li><li><a href="guides/olive-oil-guide.html"><img src="images/olive-oil-guide.jpg" alt="Olive Oil Guide" class="card-img">Olive Oil Guide</a><p>How to choose, use, and store olive oil — grades, smoke points, and everyday tips.</p></li><li><a href="guides/whole-grains.html"><img src="images/whole-grains.jpg" alt="Whole Grains" class="card-img">Whole Grains</a><p>Barley, farro, bulgur, oats, and wholewheat — how Mediterranean grains work in daily meals.</p></li><li><a href="guides/seafood.html"><img src="images/seafood.jpg" alt="Seafood" class="card-img">Seafood</a><p>Fish and seafood in the Mediterranean diet: which to eat, how often, and how to cook it.</p></li><li><a href="guides/legumes-and-beans.html"><img src="images/legumes-and-beans.jpg" alt="Legumes and Beans" class="card-img">Legumes and Beans</a><p>Lentils, chickpeas, and beans — the affordable protein at the heart of Mediterranean cooking.</p></li><li><a href="guides/mediterranean-lifestyle.html"><img src="images/mediterranean-lifestyle.jpg" alt="Mediterranean Lifestyle" class="card-img">Mediterranean Lifestyle</a><p>Beyond food: slow meals, movement, rest, and community in the Mediterranean way of life.</p></li><li><a href="guides/mediterranean-breakfast.html"><img src="images/mediterranean-breakfast.jpg" alt="Mediterranean Breakfast" class="card-img">Mediterranean Breakfast</a><p>How the Mediterranean starts the day: yoghurt, fruit, eggs, bread, and olive oil.</p></li><li><a href="guides/mediterranean-lunch.html"><img src="images/mediterranean-lunch.jpg" alt="Mediterranean Lunch" class="card-img">Mediterranean Lunch</a><p>The main meal of the Mediterranean day: salads, soups, beans, and the art of the long lunch.</p></li><li><a href="guides/mediterranean-dinner.html"><img src="images/mediterranean-dinner.jpg" alt="Mediterranean Dinner" class="card-img">Mediterranean Dinner</a><p>Light, late Mediterranean dinners: grilled fish, vegetables, soups, and family meals.</p></li><li><a href="guides/mediterranean-snacks.html"><img src="images/mediterranean-snacks.jpg" alt="Mediterranean Snacks" class="card-img">Mediterranean Snacks</a><p>Healthy Mediterranean snacks: olives, nuts, fruit, yoghurt, and mezze for any time of day.</p></li><li><a href="guides/greek-recipes.html"><img src="images/greek-recipes.jpg" alt="Greek Recipes" class="card-img">Greek Recipes</a><p>Classic Greek recipes: moussaka, souvlaki, Greek salad, spanakopita, and tzatziki.</p></li><li><a href="guides/italian-mediterranean-recipes.html"><img src="images/italian-mediterranean-recipes.jpg" alt="Italian Mediterranean Recipes" class="card-img">Italian Mediterranean Recipes</a><p>Classic Italian Mediterranean dishes: pasta, risotto, bruschetta, minestrone, and grilled fish.</p></li><li><a href="guides/spanish-mediterranean-recipes.html"><img src="images/spanish-mediterranean-recipes.jpg" alt="Spanish Mediterranean Recipes" class="card-img">Spanish Mediterranean Recipes</a><p>Classic Spanish Mediterranean dishes: paella, gazpacho, tortilla, patatas bravas, and tapas.</p></li><li><a href="guides/mediterranean-diet-and-heart-health.html"><img src="images/mediterranean-diet-and-heart-health.jpg" alt="Mediterranean Diet and Heart Health" class="card-img">Mediterranean Diet and Heart Health</a><p>How the Mediterranean diet protects the heart: evidence, mechanisms, and practical steps.</p></li><li><a href="guides/mediterranean-diet-for-weight-loss.html"><img src="images/mediterranean-diet-for-weight-loss.jpg" alt="Mediterranean Diet for Weight Loss" class="card-img">Mediterranean Diet for Weight Loss</a><p>Losing weight the Mediterranean way: portions, protein, and habits that keep it off.</p></li><li><a href="guides/mediterranean-herbs.html"><img src="images/mediterranean-herbs.jpg" alt="Mediterranean Herbs" class="card-img">Mediterranean Herbs</a><p>Basil, oregano, rosemary, thyme, and more — how to use Mediterranean herbs in everyday cooking.</p></li><li><a href="guides/mediterranean-diet-shopping-list.html"><img src="images/mediterranean-diet-shopping-list.jpg" alt="Mediterranean Diet Shopping List" class="card-img">Mediterranean Diet Shopping List</a><p>A complete Mediterranean shopping list by aisle, plus pantry staples and what to skip.</p></li><li><a href="guides/mediterranean-diet-for-beginners.html"><img src="images/mediterranean-diet-for-beginners.jpg" alt="Mediterranean Diet for Beginners" class="card-img">Mediterranean Diet for Beginners</a><p>Starting the Mediterranean diet: the first month, simple swaps, and a week-one plan.</p></li><li><a href="guides/wine-in-the-mediterranean-diet.html"><img src="images/wine-in-the-mediterranean-diet.jpg" alt="Wine in the Mediterranean Diet" class="card-img">Wine in the Mediterranean Diet</a><p>Wine in the Mediterranean tradition: moderation, meals, and what the evidence actually says.</p></li><li><a href="guides/mediterranean-diet-meal-plan.html"><img src="images/mediterranean-diet-meal-plan.jpg" alt="Mediterranean Diet Meal Plan" class="card-img">Mediterranean Diet Meal Plan</a><p>A complete 7-day Mediterranean meal plan with breakfast, lunch, and dinner for each day.</p></li></ul></section>
+</main>
+<footer class="site-footer"><div class="wrap"><p>Mediterranean Diet — Eat well, live well — the Mediterranean way</p><p><a href="about.html">About</a> | <a href="contact.html">Contact</a> | <a href="privacy.html">Privacy Policy</a> | <a href="disclaimer.html">Disclaimer</a></p><p>Content on this site is for general information only and is not medical advice.</p></div></footer>
+<script>
+
+var QUIZ=[
+'Do you use olive oil as your main cooking fat?',
+'Do you eat vegetables at least twice a day?',
+'Do you eat fruit at least twice a day?',
+'Do you eat legumes (beans, lentils, chickpeas) at least three times a week?',
+'Do you eat fish or seafood at least twice a week?',
+'Do you eat nuts at least three times a week?',
+'Do you choose whole grains over refined grains most of the time?',
+'Do you eat red meat less than once a day on average?',
+'Do you eat processed meat (sausages, bacon) less than once a day?',
+'Do you use tomato, garlic, onion, or herbs in cooking most days?',
+'Do you eat sweets or pastries less than three times a week?',
+'Do you drink mainly water, with sugary drinks less than once a day?',
+'Do you eat fermented dairy such as yoghurt or cheese in moderation?',
+'Do you share meals with family or friends most days?'];
+(function(){var q=document.getElementById('quizQs');if(!q)return;
+q.innerHTML=QUIZ.map(function(t,i){return '<div class="quiz-q"><label><input type="checkbox" class="quiz-cb" style="width:auto"> '+t+'</label></div>';}).join('');})();
+function medScore(){var n=document.querySelectorAll('.quiz-cb:checked').length;
+var msg=n<=4?'A low score — start with olive oil, more vegetables, and legumes a few times a week.':n<=9?'A moderate score — you already follow several Mediterranean habits. Add fish twice a week and more whole grains.':'A high score — your eating is close to the traditional Mediterranean pattern. Keep it up.';
+document.getElementById('quizOut').innerHTML='Your Mediterranean diet score is <strong>'+n+' out of 14</strong>. '+msg;}
+function oliveOil(){var u=document.getElementById('ooUse').value;
+var g={'salad':'Extra virgin olive oil, cold-pressed. Use a mild, fruity oil for delicate salads and a peppery one for tomato salads.','frying':'Extra virgin olive oil is fine for sautéing and shallow frying up to medium-high heat. Use a mild-flavoured one so it does not overpower the dish.','roasting':'Extra virgin olive oil, brushed or tossed with the vegetables. It holds up well at roasting temperatures and adds flavour.','baking':'A light or mild extra virgin olive oil works in cakes and breads. It replaces butter 1:1 by volume in most recipes.','finishing':'Your best extra virgin olive oil. Drizzle over soups, grilled fish, or bread, where its flavour can shine.'};
+document.getElementById('ooOut').innerHTML='<strong>Best choice:</strong> '+g[u];}
+function calcCalories(){var sex=document.getElementById('ccSex').value,w=parseFloat(document.getElementById('ccW').value),h=parseFloat(document.getElementById('ccH').value),a=parseFloat(document.getElementById('ccAge').value),f=parseFloat(document.getElementById('ccAct').value);
+if(!w||!h||!a){document.getElementById('ccOut').textContent='Please enter weight, height, and age.';return;}
+var bmr=10*w+6.25*h-5*a+(sex==='m'?5:-161),tdee=Math.round(bmr*f);
+document.getElementById('ccOut').innerHTML='Your BMR is about <strong>'+Math.round(bmr)+' kcal/day</strong>. Your estimated maintenance calories (TDEE) are about <strong>'+tdee+' kcal/day</strong>. To lose weight gradually, aim for roughly '+(tdee-400)+' to '+(tdee-500)+' kcal/day; to gain weight, add about 300 kcal/day.';}
+function medMealPlan(){var f=document.getElementById('mpFocus').value;
+var days=[['Monday','Greek yoghurt with honey and walnuts','Lentil soup with wholegrain bread','Grilled sea bass with roasted vegetables'],['Tuesday','Wholegrain toast with tomato and olive oil','Chickpea salad with feta','Baked chicken with lemon and potatoes'],['Wednesday','Porridge with figs and almonds','White bean stew with greens','Pasta with tomato, garlic, and basil'],['Thursday','Fruit with yoghurt and seeds','Tuna and white bean salad','Roast vegetables with halloumi'],['Friday','Eggs with spinach and feta','Minestrone with wholegrain bread','Grilled sardines with salad'],['Saturday','Wholegrain toast with avocado','Greek salad with olives','Lamb with rosemary and vegetables'],['Sunday','Yoghurt with berries and nuts','Pasta with vegetables and beans','Baked fish with lemon and herbs']];
+if(f==='More fish and seafood'){days[1][3]='Grilled prawns with garlic';days[2][3]='Salmon with asparagus';days[5][3]='Mussels with tomato and herbs';}
+if(f==='Vegetarian Mediterranean'){days.forEach(function(d){d[3]=d[3].replace('sea bass','aubergine bake').replace('chicken','chickpea and vegetable tagine').replace('sardines','stuffed peppers').replace('Lamb with rosemary and vegetables','Mushroom and lentil stew').replace('fish with lemon and herbs','halloumi with lemon and herbs');});}
+document.getElementById('mpOut').innerHTML='<strong>Your week — '+f+'</strong><br><br>'+days.map(function(d){return '<strong>'+d[0]+':</strong> '+d[1]+' / '+d[2]+' / '+d[3];}).join('<br>');}
+function seafoodGuide(){var k=document.getElementById('sfFish').value;
+var g={'salmon':'Rich in omega-3 fats. Grill or bake at 200C for 12 to 15 minutes. Eat once or twice a week.','sardines':'Small oily fish, rich in omega-3 and calcium. Grill whole for 3 to 4 minutes per side. Eat once or twice a week.','cod':'Lean white fish, mild and versatile. Bake with lemon and herbs for 12 to 15 minutes. Eat once or twice a week.','sea bass':'Delicate white fish. Grill or bake whole with fennel and lemon for about 20 minutes. Eat once a week.','tuna':'Meaty fish, best seared briefly so the centre stays pink. Because it is higher in mercury, keep to once a week.','mackerel':'Oily fish with a strong flavour. Grill or bake for 10 to 12 minutes. Eat once a week.','prawns':'Quick to cook — 2 to 3 minutes per side in a hot pan with garlic and olive oil. Eat once or twice a week.'};
+document.getElementById('sfOut').innerHTML='<strong>'+document.getElementById('sfFish').selectedOptions[0].text+':</strong> '+g[k];}
+
+</script>
+</body>
+</html>
